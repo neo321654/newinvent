@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "746332400549",
+    "project_id": "invent-dev",
+    "storage_bucket": "invent-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746332400549:android:83fccfffeb467cac1a164c",
+        "android_client_info": {
+          "package_name": "com.brigantina.invent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746332400549-ns4j1svsm2bn4in47dea4q29ifhlcqf9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTMJSAqUfD-9BY6Icc4iwu_fnew-qR46c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746332400549-ns4j1svsm2bn4in47dea4q29ifhlcqf9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
