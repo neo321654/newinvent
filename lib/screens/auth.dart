@@ -216,7 +216,10 @@ class _AuthorizationState extends State<AuthorizationPage> {
             fontSize: 16.0);
       }
 
-      MyUser? user = await _authService.registerWithEmailAndPassword(
+      // MyUser? user = await _authService.registerWithEmailAndPassword(
+      //     _name.trim(), _email.trim(), _password.trim());
+
+      MyUser? user = await _authService.register(
           _name.trim(), _email.trim(), _password.trim());
       if (user == null) {
         Fluttertoast.showToast(
