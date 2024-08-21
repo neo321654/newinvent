@@ -14,6 +14,8 @@ class GeneratePage extends StatefulWidget {
   _GeneratePageState createState() => _GeneratePageState();
 }
 
+
+
 Future<void> addObject(DocumentReference<Object?> qrcodes, String? inventNum,
     String? nameObj, String? nameAdding, String? countObj, String? mapObj) {
   String? time = DateFormat.yMd().add_Hm().format(DateTime.now()).toString();

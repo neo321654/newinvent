@@ -184,6 +184,10 @@ class _AuthorizationState extends State<AuthorizationPage> {
       }
     }
 
+    Future<void> _loginButtonActionMy() async {
+
+    }
+
     Future<void> _registerButtonAction() async {
       String? _name = _nameController.text;
       String? _email = _emailController.text;

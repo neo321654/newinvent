@@ -28,8 +28,8 @@ class AuthService {
   Future<MyUser?> registerWithEmailAndPassword(
       String name, String email, String password) async {
     try {
-      UserCredential result = await _fAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _fAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User firebaseUser = result.user!;
       var user = MyUser.fromFirebase(firebaseUser);
       MyUser myuser = MyUser();
@@ -48,12 +48,14 @@ class AuthService {
   }
 
   Future<MyUser?> register(String name, String email, String password) async {
-    try{
-
+    try {
       final response = await http.post(
-        Uri.parse('http://your_django_server/auth/users/'),
+        // Uri.parse('http://your_django_server/auth/users/'),
+        //todo fix hardcode
+        // Uri.parse('http://127.0.0.1:8000/auth/users/'),
+        Uri.parse('http://192.168.1.109:8000/auth/users/'),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+          'Content-Type': 'application/json',
         },
         body: jsonEncode(<String, String>{
           'email': email,
@@ -72,32 +74,24 @@ class AuthService {
         myuser.id = 'plug';
 
         return myuser;
-
       } else {
         print('Ошибка регистрации');
-
       }
-
-    }catch(e){
+    } catch (e) {
       print(e);
       return null;
     }
     return null;
-
   }
-
-
-
-
-
 
   Future logOut() async {
     await _fAuth.signOut();
   }
 
   Stream<MyUser?> get currentUser {
-    return _fAuth
-        .authStateChanges()
-        .map((User? user) => (user != null && FirebaseAuth.instance.currentUser!.emailVerified) ? MyUser.fromFirebase(user) : null);
+    return _fAuth.authStateChanges().map((User? user) =>
+        (user != null && FirebaseAuth.instance.currentUser!.emailVerified)
+            ? MyUser.fromFirebase(user)
+            : null);
   }
 }
