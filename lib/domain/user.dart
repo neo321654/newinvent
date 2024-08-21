@@ -18,4 +18,10 @@ class MyUser {
   MyUser.fromFirebase(User user) {
     id = user.uid;
   }
+
+  MyUser.from(User user) {
+    id = user.uid;
+  }
+
+
 }

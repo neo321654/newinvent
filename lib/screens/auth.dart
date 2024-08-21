@@ -19,8 +19,8 @@ class AuthorizationPage extends StatefulWidget {
 }
 
 class _AuthorizationState extends State<AuthorizationPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text:"testuser@example.com");
+  final _passwordController = TextEditingController(text:"yourpassword");
   final _nameController = TextEditingController();
 
   bool showLogin = true;
@@ -158,9 +158,11 @@ class _AuthorizationState extends State<AuthorizationPage> {
 
       MyUser? user = await _authService.signInWithEmailAndPassword(
           _email.trim(), _password.trim());
+
       if (user != null) {
         if (FirebaseAuth.instance.currentUser!.emailVerified) {
           print(FirebaseAuth.instance.currentUser!.emailVerified);
+
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => MyApp()));
           _emailController.clear();
@@ -189,31 +191,15 @@ class _AuthorizationState extends State<AuthorizationPage> {
 
     Future<void> _loginButtonActionMy() async {
 
-      // final String apiUrl = 'http://127.0.0.1:8000/login/'; // Замените на ваш URL
-      final String apiUrl = 'http://10.0.2.2:8000/login/'; // Замените на ваш URL
+      String? _email = _emailController.text;
+      String? _password = _passwordController.text;
+
+      if (_email.isEmpty || _password.isEmpty) return;
+
+      MyUser? user = await _authService.signInWithEmailAndPasswordMy(
+          _email.trim(), _password.trim());
 
 
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"email": "testuser@example.com", "password": "yourpassword"}),
-      );
-
-      if (response.statusCode == 200) {
-        // Если сервер возвращает 200 OK, сохраняем токен
-        final data = jsonDecode(response.body);
-        // await storage.write(key: 'access_token', value: data['token']);
-        print(data['access']);
-        print(data['refresh']);
-        print(data);
-        return;
-      } else {
-        // Обработка ошибок
-        print('errrrroooorrrr');
-        print(response.body);
-
-        return ;
-      }
     }
 
     Future<void> _registerButtonAction() async {
