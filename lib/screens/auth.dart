@@ -7,6 +7,9 @@ import 'package:untitled3/screens/fogot_pass.dart';
 import 'package:untitled3/screens/homePage.dart';
 import 'package:untitled3/services/auth.dart';
 import 'package:untitled3/services/landing.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class AuthorizationPage extends StatefulWidget {
   AuthorizationPage({Key? key}) : super(key: key);
@@ -186,6 +189,31 @@ class _AuthorizationState extends State<AuthorizationPage> {
 
     Future<void> _loginButtonActionMy() async {
 
+      // final String apiUrl = 'http://127.0.0.1:8000/login/'; // Замените на ваш URL
+      final String apiUrl = 'http://10.0.2.2:8000/login/'; // Замените на ваш URL
+
+
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"email": "testuser@example.com", "password": "yourpassword"}),
+      );
+
+      if (response.statusCode == 200) {
+        // Если сервер возвращает 200 OK, сохраняем токен
+        final data = jsonDecode(response.body);
+        // await storage.write(key: 'access_token', value: data['token']);
+        print(data['access']);
+        print(data['refresh']);
+        print(data);
+        return;
+      } else {
+        // Обработка ошибок
+        print('errrrroooorrrr');
+        print(response.body);
+
+        return ;
+      }
     }
 
     Future<void> _registerButtonAction() async {
@@ -273,7 +301,8 @@ class _AuthorizationState extends State<AuthorizationPage> {
                 (showLogin
                     ? Column(
                         children: <Widget>[
-                          _form('Войти', _loginButtonAction),
+                          // _form('Войти', _loginButtonAction),
+                          _form('Войти', _loginButtonActionMy),
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: GestureDetector(
